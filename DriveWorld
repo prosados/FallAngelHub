@@ -179,17 +179,17 @@ task.spawn(function()
                     spawnvehicle()
                 end
                 getchar().HumanoidRootPart.CFrame = getvehicle().PrimaryPart.CFrame
-                task.wait(1)
+                task.wait(0.1)
                 VirtualInputManager:SendKeyEvent(true, "E", false, game)
                 VirtualInputManager:SendKeyEvent(false, "E", false, game)
             end
-            repeat task.wait(.1)
+            repeat task.wait(0.1)
                 if job.Visible == false then
                     ReplicatedStorage:WaitForChild("Systems"):WaitForChild("Jobs"):WaitForChild("StartJob"):InvokeServer(workspace:WaitForChild("Jobs"):WaitForChild("Trucking"),workspace:WaitForChild("Jobs"):WaitForChild("Trucking"):WaitForChild("StartPoints"):WaitForChild("Logs"))
                 end
             until job.Visible == true or Driveworld["autodelivery"] == false
             print("Start Job")
-            repeat task.wait(.1)
+            repeat task.wait(0.1)
                 if workspace:FindFirstChild("CompletionRegion") then
                     jobDistance = getjobdistance(workspace:FindFirstChild("CompletionRegion"):FindFirstChild("Primary"):FindFirstChild("DestinationIndicator"):FindFirstChild("Distance").Text)
                 end
@@ -197,7 +197,7 @@ task.spawn(function()
                     ReplicatedStorage:WaitForChild("Systems"):WaitForChild("Jobs"):WaitForChild("StartJob"):InvokeServer(workspace:WaitForChild("Jobs"):WaitForChild("Trucking"),workspace:WaitForChild("Jobs"):WaitForChild("Trucking"):WaitForChild("StartPoints"):WaitForChild("Logs"))
                 end
             until jobDistance and tonumber(jobDistance) >= 2.1 or Driveworld["autodelivery"] == false
-            for i = 1, 40 do
+            for i = 1, 10 do
                 if not Driveworld["autodelivery"] or not getvehicle() or not getchar() or isvehicle() == false or job.Visible == false then
                     break
                 end
@@ -208,7 +208,7 @@ task.spawn(function()
             end
             task.wait(.1)
             Systems:WaitForChild("Jobs"):WaitForChild("CompleteJob"):InvokeServer()
-            task.wait(.5)
+            task.wait(0.1)
             if lp.PlayerGui.JobComplete.Enabled == true then
                 Systems:WaitForChild("Jobs"):WaitForChild("CashBankedEarnings"):FireServer()
                 for i,v in next, getconnections(lp.PlayerGui.JobComplete.Window.Content.Buttons.CloseButton.MouseButton1Click) do
@@ -280,7 +280,7 @@ task.spawn(function()
                     CompletionRegion = workspace.CompletionRegion
                 end
                 count = count + 1
-            until CompletionRegion or Driveworld["autodeliverymaterial"] == false or count >= 50
+            until CompletionRegion or Driveworld["autodeliverymaterial"] == false or count >= 10
             if CompletionRegion and CompletionRegion:FindFirstChild("Primary").CFrame then
                 completepos = CompletionRegion:FindFirstChild("Primary").CFrame * CFrame.new(0,3,0)
             end
